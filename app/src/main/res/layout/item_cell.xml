@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.narender.nyttime.popular.viewModel.ResultViewModel" />
+    </data>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp130"
+        android:background="?android:attr/selectableItemBackground"
+        android:padding="@dimen/dp20">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp10"
+            android:ellipsize="end"
+            android:maxEms="80"
+            android:maxLines="2"
+            android:textColor="#000000"
+            app:layout_constraintDimensionRatio="6:1"
+            app:layout_constraintLeft_toRightOf="@+id/imgView"
+            app:layout_constraintTop_toTopOf="@+id/parent"
+            app:mutableText="@{viewModel.getTitle()}" />
+
+        <ImageView
+            android:id="@+id/imgView"
+            android:layout_width="@dimen/dp55"
+            android:layout_height="@dimen/dp55"
+            android:scaleType="centerInside"
+            android:src="@drawable/circle"
+            app:layout_constraintBottom_toBottomOf="@+id/parent"
+            app:layout_constraintTop_toTopOf="@+id/parent"
+            tools:ignore="MissingConstraints" />
+
+
+        <TextView
+            android:id="@+id/by_Line"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp5"
+            android:layout_marginEnd="@dimen/dp10"
+            android:layout_marginBottom="@dimen/dp33"
+            android:ellipsize="end"
+            android:maxEms="15"
+            android:textSize="@dimen/dp12"
+            android:maxLines="1"
+            android:textColor="@color/text_grey"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/title"
+            app:layout_constraintLeft_toRightOf="@id/imgView"
+            app:layout_constraintTop_toBottomOf="@+id/parent"
+            app:mutableText="@{viewModel.getByLine()}" />
+
+        <LinearLayout
+            android:layout_width="@dimen/dp220"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp10"
+            android:layout_marginEnd="@dimen/dp10"
+            android:layout_marginBottom="@dimen/dp20"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:weightSum="1"
+            app:layout_constraintBottom_toBottomOf="@+id/by_Line"
+            app:layout_constraintLeft_toRightOf="@+id/imgView"
+            app:layout_constraintTop_toBottomOf="@+id/parent">
+
+            <TextView
+                android:id="@+id/source"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginEnd="@dimen/dp15"
+                android:layout_weight=".5"
+                android:ellipsize="end"
+                android:maxEms="10"
+                android:textSize="@dimen/dp12"
+                android:maxLines="1"
+                android:textColor="@color/text_grey"
+                android:textStyle="normal"
+                app:mutableText="@{viewModel.getSource()}" />
+
+            <TextView
+                android:id="@+id/published_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:layout_marginEnd="@dimen/dp10"
+                android:layout_weight=".5"
+                android:drawableLeft="@drawable/ic_perm_contact_calendar_black_24dp"
+                android:ellipsize="end"
+                android:maxEms="10"
+                android:maxLines="1"
+                android:textSize="@dimen/dp12"
+                android:textColor="@color/text_grey"
+                android:textStyle="normal"
+                app:mutableText="@{viewModel.getDate()}" />
+        </LinearLayout>
+
+        <ImageView
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_navigate_next_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/parent"
+            app:layout_constraintEnd_toEndOf="@+id/parent"
+            app:layout_constraintLeft_toRightOf="@+id/by_Line"
+            app:layout_constraintTop_toTopOf="@+id/parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

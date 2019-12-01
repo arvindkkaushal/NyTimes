@@ -1,0 +1,10 @@
+
+Bsquid:S1659"$Declare "source" on a separate line.(ıÅÀß8·Æç’Ã-
+"squid:ClassVariableVisibilityCheck"ZMake published_date a static final constant or non-public and provide accessors if needed.(ıÅÀß8‚†é’Ã-
+†"squid:ClassVariableVisibilityCheck"QMake title a static final constant or non-public and provide accessors if needed.(ıÅÀß8­ôŞ’Ã-
+‡"squid:ClassVariableVisibilityCheck"RMake source a static final constant or non-public and provide accessors if needed.(ıÅÀß8·Æç’Ã-
+ˆ"squid:ClassVariableVisibilityCheck"SMake by_Line a static final constant or non-public and provide accessors if needed.(ıÅÀß8í«å’Ã-
+qsquid:S00116"RRename this field "by_Line" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıÅÀß8í«å’Ã-
+Csquid:S1659"%Declare "by_Line" on a separate line.(ıÅÀß8í«å’Ã-
+Jsquid:S1659",Declare "published_date" on a separate line.(ıÅÀß8‚†é’Ã-
+xsquid:S00116"YRename this field "published_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ıÅÀß8‚†é’Ã-

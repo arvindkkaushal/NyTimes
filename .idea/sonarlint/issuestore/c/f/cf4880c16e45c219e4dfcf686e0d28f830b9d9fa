@@ -1,0 +1,6 @@
+
+Zsquid:S2589$"7Remove this expression which always evaluates to "true"(Ê­Î»üÿÿÿÿ8‰ý¸”Ã-
+Fsquid:S1148)"#Use a logger to log this exception.(€ÉÔ…ýÿÿÿÿ8‰ý¸”Ã-
+|squid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(àè½Žøÿÿÿÿ8ó¹µ”Ã-
+usquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÝÞ¾¯ûÿÿÿÿ8õØ¥‘Ã-
+Qsquid:S1172".Remove this unused method parameter "API_KEY".(ÝÞ¾¯ûÿÿÿÿ8€–Ä”Ã-

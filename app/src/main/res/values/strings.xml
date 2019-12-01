@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">NY Times</string>
+    <string name="app_title">NY Times Most Popular</string>
+    <string name="retry">Retry</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="post_error">An error occurred while loading the posts</string>
+    <string name="no_more_msg">No More Posts are avaiable</string>
+    <string name="middle">middle Items</string>
+</resources>
