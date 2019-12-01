@@ -1,7 +1,7 @@
 # NyTimes
 NY Times app illustrating Android development best practices with Android Jetpack,Kotlin,MVVM & DataBinding.
 
-This app is about NY Times Most Popular Articles, In this app basically you will able 1,7 and 30 days older articles
+This app is about NY Times Most Popular Articles, In this app basically you will able to checkout 1,7 and 30 days older articles
 
 Introduction
 ------------
