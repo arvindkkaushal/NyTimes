@@ -2,7 +2,6 @@ package com.narender.nyttime.popular.viewModel
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.support.annotation.MainThread
 import android.view.View
 import com.narender.nyttime.R
 import com.narender.nyttime.popular.model.Result
@@ -11,10 +10,12 @@ import com.narender.nyttime.popular.network.ResultResponseProvider
 import com.narender.nyttime.popular.view.adapter.ResultAdapter
 import com.sevevpeak.narender.utils.PAGE_START
 import com.sevevpeak.narender.utils.PERIODS
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 class ResultActivityViewModel : ViewModel() {
 
@@ -52,7 +53,6 @@ class ResultActivityViewModel : ViewModel() {
         val repository = ResultResponseProvider.provideSearchRepository()
         if (PAGE_START < PERIODS.size) {
             repository.getArticles(PERIODS[PAGE_START])
-
                     .subscribeOn(Schedulers.io())
                     .doOnSubscribe { uiScope.launch(Main) { onRetrieveResultListStart() } }
                     .doOnTerminate { uiScope.launch(Main) { onRetrieveResultListFinish() } }
@@ -68,20 +68,18 @@ class ResultActivityViewModel : ViewModel() {
     }
 
 
-    private fun onRetrieveResultListStart() {
+    private suspend fun onRetrieveResultListStart() {
         loadingVisibility.value = View.VISIBLE
         errorMessage.value = null
     }
 
-    private fun onRetrieveResultListFinish() {
+    private suspend fun onRetrieveResultListFinish() {
         loadingVisibility.value = View.GONE
     }
 
     private suspend fun onRetrievePostListSuccess(postList: Any) {
         if (postList is ResultResponse) {
             resultAdapter.updateResultList(postList.results)
-        } else if (postList is List<*>) {
-            resultAdapter.updateResultList(postList as List<Result>)
         }
 
     }
