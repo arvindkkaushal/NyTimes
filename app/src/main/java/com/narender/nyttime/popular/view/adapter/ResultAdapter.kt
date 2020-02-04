@@ -1,9 +1,9 @@
 package com.narender.nyttime.popular.view.adapter
 
-import android.databinding.DataBindingUtil
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.narender.nyttime.R
 import com.narender.nyttime.databinding.ItemCellBinding
 import com.narender.nyttime.popular.model.Result

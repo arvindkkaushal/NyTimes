@@ -1,20 +1,24 @@
 package com.narender.nyttime.popular.view
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
+import PAGE_START
+import TOTAL_PAGES
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.techchallengelalamove.ui.factory.ViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 import com.narender.nyttime.R
 import com.narender.nyttime.databinding.LayoutMainBinding
+import com.narender.nyttime.popular.NyTimesApp
 import com.narender.nyttime.popular.utils.PaginationScrollListener
 import com.narender.nyttime.popular.viewModel.ResultActivityViewModel
-import com.sevevpeak.narender.utils.PAGE_START
+import javax.inject.Inject
 
 
 class ResultActivity : AppCompatActivity() {
@@ -23,15 +27,18 @@ class ResultActivity : AppCompatActivity() {
     private lateinit var binding: LayoutMainBinding
     private lateinit var viewModel: ResultActivityViewModel
     private var isLastPage = false
-    private val TOTAL_PAGES = 3
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
     private var isLoading = true
     private val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as NyTimesApp).getApplicationComponent().plusActivityComponent().inject(this)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.layout_main)
         binding.recyelerView.layoutManager = linearLayoutManager
-        viewModel = ViewModelProviders.of(this).get(ResultActivityViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ResultActivityViewModel::class.java)
+        viewModel.loadResult()
         viewModel.errorMessage.observe(this, Observer { errorMsg -> if (errorMsg != null) showError(errorMsg) else hideError() })
         viewModel.noMoreMessage.observe(this, Observer { noMoreMsg -> if (noMoreMsg != null) showNoMoreMsg(noMoreMsg) else hideNoMore() })
         binding.viewModel = viewModel

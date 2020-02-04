@@ -1,103 +1,81 @@
 package com.narender.nyttime.popular.viewModel
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import PAGE_START
+import PERIODS
 import android.view.View
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.narender.nyttime.BuildConfig
 import com.narender.nyttime.R
-import com.narender.nyttime.popular.model.Result
+import com.narender.nyttime.popular.di.scope.ApplicationScope
 import com.narender.nyttime.popular.model.ResultResponse
-import com.narender.nyttime.popular.network.ResultResponseProvider
+import com.narender.nyttime.popular.network.ResultResponseApi
 import com.narender.nyttime.popular.view.adapter.ResultAdapter
-import com.sevevpeak.narender.utils.PAGE_START
-import com.sevevpeak.narender.utils.PERIODS
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.Main
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ResultActivityViewModel : ViewModel() {
+class ResultActivityViewModel @Inject constructor(private val resultResponseApi: ResultResponseApi) : ViewModel() {
 
     val resultAdapter: ResultAdapter = ResultAdapter()
     val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
     val errorMessage: MutableLiveData<Int> = MutableLiveData()
     val noMoreMessage: MutableLiveData<Int> = MutableLiveData()
     val errorClickListener = View.OnClickListener { loadResult() }
-    /**
-     * This is the job for all coroutines started by this ViewModel.
-     * Cancelling this job will cancel all coroutines started by this ViewModel.
-     */
-    private val viewModelJob = SupervisorJob()
 
-    /**
-     * This is the main scope for all coroutines launched by MainViewModel.
-     * Since we pass viewModelJob, you can cancel all coroutines
-     * launched by uiScope by calling viewModelJob.cancel()
-     */
-    private val uiScope = CoroutineScope(Dispatchers.IO + viewModelJob)
-
-    init {
-        loadResult()
-    }
+    //use for add and clear all observer
+    private val compositeDisposable = CompositeDisposable()
 
 
     fun loadResult() {
-        uiScope.launch() {
-            callResultApi()
-        }
-
-    }
-
-    suspend fun callResultApi() {
-        val repository = ResultResponseProvider.provideSearchRepository()
         if (PAGE_START < PERIODS.size) {
-            repository.getArticles(PERIODS[PAGE_START])
+            compositeDisposable.add(resultResponseApi.getPosts(PERIODS[PAGE_START], BuildConfig.API_KEY)
                     .subscribeOn(Schedulers.io())
-                    .doOnSubscribe { uiScope.launch(Main) { onRetrieveResultListStart() } }
-                    .doOnTerminate { uiScope.launch(Main) { onRetrieveResultListFinish() } }
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnSubscribe { onRetrieveResultListStart() }
+                    .doOnTerminate { onRetrieveResultListFinish() }
                     .subscribe(
-                            { result -> uiScope.launch(Main) { onRetrievePostListSuccess(result) } },
-                            { e -> uiScope.launch(Main) { onRetrieveResultListError() } }
-                    )
+                            { result -> onRetrievePostListSuccess(result) },
+                            { e -> onRetrieveResultListError() }
+                    ))
+
         } else {
-            uiScope.launch(Main) {
-                onRetrieveResultListNoMoreMsg()
-            }
+            onRetrieveResultListNoMoreMsg()
         }
     }
 
 
-    private suspend fun onRetrieveResultListStart() {
+    private fun onRetrieveResultListStart() {
         loadingVisibility.value = View.VISIBLE
         errorMessage.value = null
     }
 
-    private suspend fun onRetrieveResultListFinish() {
+    private fun onRetrieveResultListFinish() {
         loadingVisibility.value = View.GONE
     }
 
-    private suspend fun onRetrievePostListSuccess(postList: Any) {
+    private fun onRetrievePostListSuccess(postList: Any) {
         if (postList is ResultResponse) {
             resultAdapter.updateResultList(postList.results)
         }
 
     }
 
-    private suspend fun onRetrieveResultListError() {
+    private fun onRetrieveResultListError() {
         errorMessage.value = R.string.post_error
     }
 
-    private suspend fun onRetrieveResultListNoMoreMsg() {
+    private fun onRetrieveResultListNoMoreMsg() {
         noMoreMessage.value = R.string.no_more_msg
     }
 
     /**
-     * Cancel all coroutines when the ViewModel is cleared
+     * Clear all Observer when the ViewModel is cleared
      */
     override fun onCleared() {
         super.onCleared()
-        viewModelJob.cancel()
+        compositeDisposable.clear()
     }
 
 

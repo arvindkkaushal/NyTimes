@@ -1,19 +1,12 @@
 package com.narender.nyttime.popular.utils
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+
 
 abstract class PaginationScrollListener(layoutManager: LinearLayoutManager) : RecyclerView.OnScrollListener() {
-    internal lateinit var layoutManager: LinearLayoutManager
 
-    /**
-     * Supporting only LinearLayoutManager for now.
-     *
-     * @param layoutManager
-     */
-    init {
-        this.layoutManager = layoutManager
-    }
+    private var layoutManager: LinearLayoutManager = layoutManager
 
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

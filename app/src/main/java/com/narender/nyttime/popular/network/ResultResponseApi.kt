@@ -20,20 +20,4 @@ interface ResultResponseApi {
      */
     @GET("svc/mostpopular/v2/viewed/{page_value}.json")
     fun getPosts(@Path(value = "page_value") page_value: Int, @Query("api-key") api_key: String): Observable<ResultResponse>
-
-    /**
-     * Companion object to create the ResultResponseApi
-     */
-    companion object Factory {
-        fun create(): ResultResponseApi {
-            val retrofit = Retrofit.Builder()
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .addConverterFactory(MoshiConverterFactory.create())
-                    .baseUrl(BuildConfig.BASE_URL)
-                    .build()
-
-            return retrofit.create(ResultResponseApi::class.java);
-        }
-
-    }
 }

@@ -11,8 +11,7 @@
     </data>
 
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp130"
         android:background="?android:attr/selectableItemBackground"
@@ -25,9 +24,8 @@
             android:layout_marginStart="@dimen/dp10"
             android:layout_marginEnd="@dimen/dp10"
             android:ellipsize="end"
-            android:maxEms="80"
             android:maxLines="2"
-            android:textColor="#000000"
+            android:textColor="@color/black"
             app:layout_constraintDimensionRatio="6:1"
             app:layout_constraintLeft_toRightOf="@+id/imgView"
             app:layout_constraintTop_toTopOf="@+id/parent"
@@ -37,11 +35,12 @@
             android:id="@+id/imgView"
             android:layout_width="@dimen/dp55"
             android:layout_height="@dimen/dp55"
+            android:contentDescription="@string/image_description"
             android:scaleType="centerInside"
             android:src="@drawable/circle"
-            app:layout_constraintBottom_toBottomOf="@+id/parent"
-            app:layout_constraintTop_toTopOf="@+id/parent"
-            tools:ignore="MissingConstraints" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
@@ -53,14 +52,13 @@
             android:layout_marginEnd="@dimen/dp10"
             android:layout_marginBottom="@dimen/dp33"
             android:ellipsize="end"
-            android:maxEms="15"
-            android:textSize="@dimen/dp12"
             android:maxLines="1"
             android:textColor="@color/text_grey"
+            android:textSize="@dimen/sp12"
             android:textStyle="normal"
-            app:layout_constraintBottom_toBottomOf="@+id/title"
-            app:layout_constraintLeft_toRightOf="@id/imgView"
-            app:layout_constraintTop_toBottomOf="@+id/parent"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@id/imgView"
+            app:layout_constraintTop_toBottomOf="@id/title"
             app:mutableText="@{viewModel.getByLine()}" />
 
         <LinearLayout
@@ -71,11 +69,10 @@
             android:layout_marginEnd="@dimen/dp10"
             android:layout_marginBottom="@dimen/dp20"
             android:orientation="horizontal"
-            android:visibility="visible"
             android:weightSum="1"
-            app:layout_constraintBottom_toBottomOf="@+id/by_Line"
-            app:layout_constraintLeft_toRightOf="@+id/imgView"
-            app:layout_constraintTop_toBottomOf="@+id/parent">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgView"
+            app:layout_constraintTop_toBottomOf="@id/by_Line">
 
             <TextView
                 android:id="@+id/source"
@@ -86,11 +83,12 @@
                 android:layout_weight=".5"
                 android:ellipsize="end"
                 android:maxEms="10"
-                android:textSize="@dimen/dp12"
                 android:maxLines="1"
                 android:textColor="@color/text_grey"
+                android:textSize="@dimen/sp12"
                 android:textStyle="normal"
-                app:mutableText="@{viewModel.getSource()}" />
+                app:mutableText="@{viewModel.getSource()}"
+                tools:ignore="RtlCompat" />
 
             <TextView
                 android:id="@+id/published_date"
@@ -99,26 +97,26 @@
                 android:layout_marginTop="@dimen/dp10"
                 android:layout_marginEnd="@dimen/dp10"
                 android:layout_weight=".5"
-                android:drawableLeft="@drawable/ic_perm_contact_calendar_black_24dp"
+                android:drawableStart="@drawable/ic_perm_contact_calendar_black_24dp"
                 android:ellipsize="end"
                 android:maxEms="10"
                 android:maxLines="1"
-                android:textSize="@dimen/dp12"
                 android:textColor="@color/text_grey"
+                android:textSize="@dimen/sp12"
                 android:textStyle="normal"
-                app:mutableText="@{viewModel.getDate()}" />
+                app:mutableText="@{viewModel.getDate()}"
+                tools:ignore="RtlCompat" />
         </LinearLayout>
 
         <ImageView
-
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/detail_arrow"
             android:src="@drawable/ic_navigate_next_black_24dp"
-            app:layout_constraintBottom_toBottomOf="@+id/parent"
-            app:layout_constraintEnd_toEndOf="@+id/parent"
-            app:layout_constraintLeft_toRightOf="@+id/by_Line"
-            app:layout_constraintTop_toTopOf="@+id/parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,3 +1,6 @@
+package com.narender.nytimes
+
+
 @RunWith(AndroidJUnit4::class)
 class ResultActivityEspressoTest {
 
@@ -17,7 +20,7 @@ class ResultActivityEspressoTest {
     }
 
     @Test
-    fun checkRecyclerViewClick(){
+    fun checkRecyclerViewClick() {
         // Click item at position 3
         onView(withId(R.id.recyelerView))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(3, click()));
