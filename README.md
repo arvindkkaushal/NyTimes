@@ -31,13 +31,16 @@ Libraries Used
   persistence.
   * [Data Binding][11] - Declaratively bind observable data to UI elements.
   * [LiveData][13] - Build data objects that notify views when the underlying database changes.
+  * [Dagger][96] - Automate dependency injection in your app & you don't have to write tedious & error-prone boilerplate code.
   * [ViewModel][17] - Store UI-related data that isn't destroyed on app rotations. Easily schedule
      asynchronous tasks for optimal execution.
+     
 * [UI][30] - Details on why and how to use UI Components in your apps - together or separate
   * [Layout][35] - Lay out widgets using different algorithms.
 * Third party
   * [Rx Java][91] for managing background threads with simplified code and reducing needs for callbacks
   * [Retrofit2][92] for client and server intreaction and callback
+  
   
 [0]: https://developer.android.com/jetpack/components
 [1]: https://developer.android.com/topic/libraries/support-library/packages#v7-appcompat
@@ -51,3 +54,4 @@ Libraries Used
 [35]: https://developer.android.com/guide/topics/ui/declaring-layout
 [91]: http://reactivex.io/intro.html
 [92]: https://square.github.io/retrofit/#introduction
+[96]: https://developer.android.com/training/dependency-injection/dagger-android
