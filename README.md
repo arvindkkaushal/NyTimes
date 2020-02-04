@@ -36,7 +36,7 @@ Libraries Used
 * [UI][30] - Details on why and how to use UI Components in your apps - together or separate
   * [Layout][35] - Lay out widgets using different algorithms.
 * Third party
-  * [Kotlin Coroutines][91] for managing background threads with simplified code and reducing needs for callbacks
+  * [Rx Java][91] for managing background threads with simplified code and reducing needs for callbacks
   * [Retrofit2][92] for client and server intreaction and callback
   
 [0]: https://developer.android.com/jetpack/components
@@ -49,5 +49,5 @@ Libraries Used
 [17]: https://developer.android.com/topic/libraries/architecture/viewmodel
 [30]: https://developer.android.com/guide/topics/ui
 [35]: https://developer.android.com/guide/topics/ui/declaring-layout
-[91]: https://kotlinlang.org/docs/reference/coroutines-overview.html
+[91]: http://reactivex.io/intro.html
 [92]: https://square.github.io/retrofit/#introduction
